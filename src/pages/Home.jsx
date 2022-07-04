@@ -22,20 +22,22 @@ const Home = () => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [searchValue, setSearchValue] = React.useState('');
 
-  const [selectedSortType, setSelectedSortType] = React.useState({
+  /*  const [selectedSortType, setSelectedSortType] = React.useState({
     name: 'популярности',
     sortProperty: 'rating',
     order: 'desc',
-  });
+  }); */
 
   const categoryId = useSelector(state => state.filter.activeCategory);
+  const sort = useSelector(state => state.filter.sort);
+  const { sortProperty, order } = sort;
 
   React.useEffect(() => {
     setIsLoading(true);
     fetch(
-      `${api}${categoryId > 0 ? `category=${categoryId}` : ''}&_sort=${
-        selectedSortType.sortProperty
-      }&_order=${selectedSortType.order}`
+      `${api}${
+        categoryId > 0 ? `category=${categoryId}` : ''
+      }&_sort=${sortProperty}&_order=${order}`
     )
       .then(res => res.json())
       .then(data => {
@@ -43,7 +45,7 @@ const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, selectedSortType]);
+  }, [categoryId, sortProperty, order]);
 
   const products = items
     .filter(obj =>
@@ -59,10 +61,7 @@ const Home = () => {
             value={categoryId}
             onClickCategory={idx => dispatch(setActiveCategory(idx))}
           />
-          <Sort
-            value={selectedSortType}
-            onChangeSort={idx => setSelectedSortType(idx)}
-          />
+          <Sort />
         </div>
         <div className="content__title-wrapper">
           <h2 className="content__title">Все продукты</h2>
