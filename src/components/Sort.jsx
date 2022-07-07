@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedSort } from '../redux/slices/filterSlice';
 
-const sort = [
+export const sortList = [
   {
     name: 'популярности',
     sortProperty: 'rating',
@@ -16,18 +16,30 @@ const sort = [
 
 const Sort = () => {
   const dispatch = useDispatch();
+  const sortRef = React.useRef();
   const { name, sortProperty } = useSelector(state => state.filter.sort);
   const [openSortPopup, setOpenSortPopup] = React.useState(false);
-
-  //const sortedBy = sort[value].name;
 
   const onClickSelectSort = obj => {
     dispatch(setSelectedSort(obj));
     setOpenSortPopup(false);
   };
 
+  React.useEffect(() => {
+    const handleSortPopup = event => {
+      if (!event.path.includes(sortRef.current)) {
+        setOpenSortPopup(false);
+      }
+    };
+    document.body.addEventListener('click', handleSortPopup);
+
+    return () => {
+      document.body.removeEventListener('click', handleSortPopup);
+    };
+  }, []);
+
   return (
-    <div className="sort">
+    <div className="sort" ref={sortRef}>
       <div className="sort__label">
         <svg
           width="10"
@@ -47,7 +59,7 @@ const Sort = () => {
       {openSortPopup && (
         <div className="sort__popup">
           <ul>
-            {sort.map((item, idx) => (
+            {sortList.map((item, idx) => (
               <li
                 className={sortProperty === item.sortProperty ? 'active' : ''}
                 key={idx}
