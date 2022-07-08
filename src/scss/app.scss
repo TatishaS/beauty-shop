@@ -196,8 +196,8 @@ body {
       width: 10%;
 
       img {
-        width: 80px;
-        height: 80px;
+        width: 55px;
+        height: auto;
       }
     }
 
@@ -208,8 +208,8 @@ body {
       width: 40%;
 
       h3 {
-        font-weight: bold;
-        font-size: 22px;
+        font-weight: semibold;
+        font-size: 20px;
         line-height: 27px;
         letter-spacing: 0.01em;
       }
@@ -351,7 +351,7 @@ body {
 
   &--empty {
     margin: 0 auto;
-    width: 560px;
+    width: 800px;
     text-align: center;
 
     h2 {
@@ -373,7 +373,7 @@ body {
 
     img {
       display: block;
-      width: 300px;
+      width: 600px;
       margin: 45px auto 60px;
     }
 

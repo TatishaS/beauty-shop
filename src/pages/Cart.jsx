@@ -1,39 +1,66 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { clearCart } from '../redux/slices/cartSlice';
+import CartItem from '../components/CartItem';
+import CartEmpty from '../components/CartEmpty';
 
 const Cart = () => {
+  const dispatch = useDispatch();
+  const { items, totalPrice } = useSelector(state => state.cart);
+
+  const totalCount =
+    items &&
+    items.reduce((sum, item) => {
+      return sum + item.count;
+    }, 0);
+
+  const onClickClearCart = () => {
+    if (window.confirm('Вы хотите удалить все товары?')) {
+      dispatch(clearCart());
+    }
+  };
+
+  if (!totalCount) {
+    return <CartEmpty />;
+  }
+
   return (
-    <div class="container container--cart">
-      <div class="cart">
-        <div class="cart__top">
-          <h2 class="content__title">
+    <div className="container container--cart">
+      <div className="cart">
+        <div className="cart__top">
+          <h2 className="content__title">
             <img />
             Корзина
           </h2>
-          <div class="cart__clear">
+          <button className="cart__clear" onClick={onClickClearCart}>
             <img />
             <span>Очистить корзину</span>
-          </div>
+          </button>
         </div>
-        <div class="content__items">
-          <img />
+        <div className="content__items">
+          {items.map(item => (
+            <CartItem key={item.id} {...item} />
+          ))}
         </div>
-        <div class="cart__bottom">
-          <div class="cart__bottom-details">
+        <div className="cart__bottom">
+          <div className="cart__bottom-details">
             <span>
-              {' '}
-              Всего пицц: <b>3 шт.</b>{' '}
+              Всего продуктов: <b>{totalCount} шт.</b>
             </span>
             <span>
-              Сумма заказа: <b>900 ₽</b>{' '}
+              Сумма заказа: <b>{totalPrice} руб.</b>
             </span>
           </div>
-          <div class="cart__bottom-buttons">
-            <Link to="/" class="button button--outline button--add go-back-btn">
+          <div className="cart__bottom-buttons">
+            <Link
+              to="/"
+              className="button button--outline button--add go-back-btn"
+            >
               <img />
               <span>Вернуться назад</span>
             </Link>
-            <div class="button pay-btn">
+            <div className="button pay-btn">
               <span>Оплатить сейчас</span>
             </div>
           </div>
