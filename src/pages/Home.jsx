@@ -27,10 +27,12 @@ const Home = () => {
   const isMounted = React.useRef(false);
 
   //const [isLoading, setIsLoading] = React.useState(true);
-  const [searchValue, setSearchValue] = React.useState('');
+  //const [searchValue, setSearchValue] = React.useState('');
+  const { activeCategory, sort, searchValue } = useSelector(
+    state => state.filter
+  );
+  const categoryId = activeCategory;
 
-  const categoryId = useSelector(state => state.filter.activeCategory);
-  const sort = useSelector(state => state.filter.sort);
   const { sortProperty, order } = sort;
   const { items, status } = useSelector(state => state.products);
 
@@ -109,7 +111,7 @@ const Home = () => {
         </div>
         <div className="content__title-wrapper">
           <h2 className="content__title">Все продукты</h2>
-          <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+          <Search />
         </div>
 
         {status === 'error' ? (

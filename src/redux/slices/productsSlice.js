@@ -9,9 +9,9 @@ const initialState = {
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async params => {
-    const { api, categoryId, sortProperty, order } = params;
+    const { api, categoryId, sortProperty, order, searchValue } = params;
     const response = await axios.get(
-      `${-api}${
+      `${api}${
         categoryId > 0 ? `category=${categoryId}` : ''
       }&_sort=${sortProperty}&_order=${order}`
     );
