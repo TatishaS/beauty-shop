@@ -52,6 +52,24 @@ body {
     }
   }
 
+  &__error-info {
+    width: 550px;
+    margin: 80px auto 180px;
+    text-align: center;
+
+    h2 {
+      font-size: 30px;
+      font-weight: 700;
+      margin: 0;
+      margin-bottom: 30px;
+    }
+
+    p {
+      font-size: 22px;
+      line-height: 27px;
+    }
+  }
+
   &__title {
     margin: 35px 0;
   }

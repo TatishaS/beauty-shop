@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
+
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import Categories from '../components/Categories';
@@ -9,6 +9,7 @@ import Search from '../components/Search';
 import ProductBlock from '../components/ProductBlock/ProductBlock';
 import Skeleton from '../components/ProductBlock/Skeleton';
 import { setActiveCategory, setFilters } from '../redux/slices/filterSlice';
+import { fetchProducts } from '../redux/slices/productsSlice';
 
 const api = 'https://my-beautyshop-api.herokuapp.com/products?';
 // api query example
@@ -24,36 +25,26 @@ const Home = () => {
   const navigate = useNavigate();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
-  const [items, setItems] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [searchValue, setSearchValue] = React.useState('');
 
-  /*  const [selectedSortType, setSelectedSortType] = React.useState({
-    name: 'популярности',
-    sortProperty: 'rating',
-    order: 'desc',
-  }); */
+  //const [isLoading, setIsLoading] = React.useState(true);
+  const [searchValue, setSearchValue] = React.useState('');
 
   const categoryId = useSelector(state => state.filter.activeCategory);
   const sort = useSelector(state => state.filter.sort);
   const { sortProperty, order } = sort;
+  const { items, status } = useSelector(state => state.products);
 
   const onChangeCategory = React.useCallback(idx => {
     dispatch(setActiveCategory(idx));
   }, []);
 
-  const fetchProducts = () => {
-    setIsLoading(true);
-    axios
-      .get(
-        `${api}${
-          categoryId > 0 ? `category=${categoryId}` : ''
-        }&_sort=${sortProperty}&_order=${order}`
-      )
-      .then(res => {
-        setItems(res.data);
-        setIsLoading(false);
-      });
+  const getProducts = async () => {
+    try {
+      dispatch(fetchProducts({ api, categoryId, sortProperty, order }));
+    } catch (error) {
+      console.error(error);
+      alert('ОШИБКА:' + error);
+    }
   };
 
   React.useEffect(() => {
@@ -97,7 +88,7 @@ const Home = () => {
   React.useEffect(() => {
     window.scrollTo(0, 0);
     if (!isSearch.current) {
-      fetchProducts();
+      getProducts();
     }
 
     isSearch.current = false;
@@ -121,7 +112,16 @@ const Home = () => {
           <Search searchValue={searchValue} setSearchValue={setSearchValue} />
         </div>
 
-        <div className="content__items">{isLoading ? skeletons : products}</div>
+        {status === 'error' ? (
+          <div className="content__error-info">
+            <h2>Произошла ошибка</h2>
+            <p>Пожалуйста, попробуйте зайти на страницу позже.</p>
+          </div>
+        ) : (
+          <div className="content__items">
+            {status === 'pending' ? skeletons : products}
+          </div>
+        )}
       </div>
     </>
   );
