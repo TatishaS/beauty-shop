@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/logo-ve.png';
 
-const Header = () => {
-  const { items, totalPrice } = useSelector(state => state.cart);
+const Header: FC = () => {
+  const { items, totalPrice } = useSelector((state: any) => state.cart);
 
   const totalCount =
     items &&
-    items.reduce((sum, item) => {
+    items.reduce((sum: number, item: any) => {
       return sum + item.count;
     }, 0);
 

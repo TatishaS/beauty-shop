@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSearchValue } from '../../redux/slices/filterSlice';
 import { ReactComponent as SearchIcon } from '../../assets/images/icon-search.svg';
@@ -10,15 +10,15 @@ const Search = () => {
   const dispatch = useDispatch();
   const [value, setValue] = React.useState('');
 
-  const searchValue = useSelector(state => state.filter);
-  const inputRef = React.useRef();
+  const searchValue = useSelector((state: any) => state.filter);
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const updateSearchValue = React.useCallback(
     debounce(value => dispatch(setSearchValue(value)), 500),
     []
   );
 
-  const onChangeInput = event => {
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };
@@ -26,7 +26,7 @@ const Search = () => {
   const onClickClear = () => {
     dispatch(setSearchValue(''));
     setValue('');
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   return (

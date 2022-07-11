@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import qs from 'qs';
@@ -20,7 +20,7 @@ const api = 'https://my-beautyshop-api.herokuapp.com/products?';
 
 // search query
 // https://my-beautyshop-api.herokuapp.com/products?q=гель
-const Home = () => {
+const Home: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSearch = React.useRef(false);
@@ -29,19 +29,20 @@ const Home = () => {
   //const [isLoading, setIsLoading] = React.useState(true);
   //const [searchValue, setSearchValue] = React.useState('');
   const { activeCategory, sort, searchValue } = useSelector(
-    state => state.filter
+    (state: any) => state.filter
   );
   const categoryId = activeCategory;
 
   const { sortProperty, order } = sort;
-  const { items, status } = useSelector(state => state.products);
+  const { items, status } = useSelector((state: any) => state.products);
 
-  const onChangeCategory = React.useCallback(idx => {
+  const onChangeCategory = React.useCallback((idx: number) => {
     dispatch(setActiveCategory(idx));
   }, []);
 
   const getProducts = async () => {
     try {
+      // @ts-ignore
       dispatch(fetchProducts({ api, categoryId, sortProperty, order }));
     } catch (error) {
       console.error(error);
@@ -97,10 +98,10 @@ const Home = () => {
   }, [categoryId, sortProperty, order]);
 
   const products = items
-    .filter(obj =>
+    .filter((obj: any) =>
       obj.title.toLowerCase().includes(searchValue.toLowerCase()) ? true : false
     )
-    .map(obj => <ProductBlock key={obj.id} {...obj} />);
+    .map((obj: any) => <ProductBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(12)].map((_, idx) => <Skeleton key={idx} />);
   return (
     <>

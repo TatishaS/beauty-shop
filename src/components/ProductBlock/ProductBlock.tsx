@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../redux/slices/cartSlice';
 
-const ProductBlock = ({ id, imageUrl, title, price, sizes }) => {
+type ProductBlockProps = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  price: number;
+  sizes: number[];
+};
+
+const ProductBlock: FC<ProductBlockProps> = ({
+  id,
+  imageUrl,
+  title,
+  price,
+  sizes,
+}) => {
   const dispatch = useDispatch();
-  const extraItem = useSelector(state =>
-    state.cart.items.find(obj => obj.id === id)
+  const extraItem = useSelector((state: any) =>
+    state.cart.items.find((obj: any) => obj.id === id)
   );
 
   const count = extraItem ? extraItem.count : 0;
