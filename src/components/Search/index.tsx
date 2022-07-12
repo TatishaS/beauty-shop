@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../hooks';
 import { setSearchValue } from '../../redux/slices/filterSlice';
 import { ReactComponent as SearchIcon } from '../../assets/images/icon-search.svg';
 import { ReactComponent as ClearIcon } from '../../assets/images/icon-close.svg';
@@ -10,7 +11,7 @@ const Search = () => {
   const dispatch = useDispatch();
   const [value, setValue] = React.useState('');
 
-  const searchValue = useSelector((state: any) => state.filter);
+  const searchValue = useAppSelector(state => state.filter);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const updateSearchValue = React.useCallback(

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../../redux/slices/cartSlice';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../hooks';
+import { addItem, Item } from '../../redux/slices/cartSlice';
 
 type ProductBlockProps = {
   id: number;
@@ -18,7 +19,7 @@ const ProductBlock: FC<ProductBlockProps> = ({
   sizes,
 }) => {
   const dispatch = useDispatch();
-  const extraItem = useSelector((state: any) =>
+  const extraItem = useAppSelector(state =>
     state.cart.items.find((obj: any) => obj.id === id)
   );
 
@@ -26,12 +27,13 @@ const ProductBlock: FC<ProductBlockProps> = ({
   const [activeSize, setActiveSize] = React.useState(0);
 
   const onClickAddProduct = () => {
-    const item = {
+    const item: Item = {
       id,
       imageUrl,
       title,
       price,
       size: sizes[activeSize],
+      count: 0,
     };
     dispatch(addItem(item));
   };

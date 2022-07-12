@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../hooks';
 import { Link } from 'react-router-dom';
 import { clearCart } from '../redux/slices/cartSlice';
 import CartItem from '../components/CartItem';
@@ -7,7 +8,7 @@ import CartEmpty from '../components/CartEmpty';
 
 const Cart: FC = () => {
   const dispatch = useDispatch();
-  const { items, totalPrice } = useSelector((state: any) => state.cart);
+  const { items, totalPrice } = useAppSelector(state => state.cart);
 
   const totalCount =
     items &&

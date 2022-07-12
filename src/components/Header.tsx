@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../hooks';
 import { Link } from 'react-router-dom';
 import logo from '../assets/images/logo-ve.png';
 
 const Header: FC = () => {
-  const { items, totalPrice } = useSelector((state: any) => state.cart);
+  const { items, totalPrice } = useAppSelector(state => state.cart);
 
   const totalCount =
     items &&

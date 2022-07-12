@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../hooks';
 
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
@@ -21,20 +21,20 @@ const api = 'https://my-beautyshop-api.herokuapp.com/products?';
 // search query
 // https://my-beautyshop-api.herokuapp.com/products?q=гель
 const Home: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
   //const [isLoading, setIsLoading] = React.useState(true);
   //const [searchValue, setSearchValue] = React.useState('');
-  const { activeCategory, sort, searchValue } = useSelector(
-    (state: any) => state.filter
+  const { activeCategory, sort, searchValue } = useAppSelector(
+    state => state.filter
   );
   const categoryId = activeCategory;
 
   const { sortProperty, order } = sort;
-  const { items, status } = useSelector((state: any) => state.products);
+  const { items, status } = useAppSelector(state => state.products);
 
   const onChangeCategory = React.useCallback((idx: number) => {
     dispatch(setActiveCategory(idx));
@@ -42,15 +42,16 @@ const Home: FC = () => {
 
   const getProducts = async () => {
     try {
-      // @ts-ignore
-      dispatch(fetchProducts({ api, categoryId, sortProperty, order }));
+      dispatch(
+        fetchProducts({ api, categoryId, sortProperty, order, searchValue })
+      );
     } catch (error) {
       console.error(error);
       alert('ОШИБКА:' + error);
     }
   };
 
-  React.useEffect(() => {
+  /*  React.useEffect(() => {
     if (isMounted.current) {
       const queryString = qs.stringify({
         categoryId,
@@ -62,9 +63,9 @@ const Home: FC = () => {
     }
 
     isMounted.current = true;
-  }, [categoryId, sortProperty, order]);
+  }, [categoryId, sortProperty, order]); */
 
-  React.useEffect(() => {
+  /*  React.useEffect(() => {
     if (
       window.location.search &&
       window.location.search !== '?sortProperty=rating&categoryId=0&order=desc'
@@ -86,7 +87,7 @@ const Home: FC = () => {
 
       isSearch.current = true;
     }
-  }, []);
+  }, []); */
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -122,7 +123,7 @@ const Home: FC = () => {
           </div>
         ) : (
           <div className="content__items">
-            {status === 'pending' ? skeletons : products}
+            {status === 'loading' ? skeletons : products}
           </div>
         )}
       </div>
