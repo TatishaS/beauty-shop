@@ -41,7 +41,7 @@ export const sortList: SortItem[] = [
   },
 ];
 
-const Sort: FC = () => {
+const Sort: FC = React.memo(() => {
   const dispatch = useDispatch();
   const sortRef = React.useRef<HTMLDivElement>(null);
   const { name, sortProperty } = useAppSelector(state => state.filter.sort);
@@ -100,6 +100,6 @@ const Sort: FC = () => {
       )}
     </div>
   );
-};
+});
 
 export default Sort;

@@ -52,6 +52,7 @@ const CartItem: FC<CartItemProps> = ({
         <button
           className="button button--outline button--circle cart__item-count-minus"
           onClick={onClickMinus}
+          disabled={count === 1}
         >
           <svg
             width="10"

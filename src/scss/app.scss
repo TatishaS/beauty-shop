@@ -250,6 +250,23 @@ body {
             display: none;
           }
         }
+
+        &:disabled {
+          opacity: 0.4;
+          border-color: #b3b3b3;
+
+          svg path {
+            fill: #b3b3b3;
+          }
+
+          &:active {
+            transform: none;
+          }
+
+          &:hover {
+            background-color: transparent;
+          }
+        }
       }
 
       b {

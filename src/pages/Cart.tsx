@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../hooks';
 import { Link } from 'react-router-dom';
+import { ReactComponent as ClearCartIcon } from '../assets/images/icon-clear.svg';
 import { clearCart } from '../redux/slices/cartSlice';
 import CartItem from '../components/CartItem';
 import CartEmpty from '../components/CartEmpty';
@@ -35,7 +36,7 @@ const Cart: FC = () => {
             Корзина
           </h2>
           <button className="cart__clear" onClick={onClickClearCart}>
-            <img />
+            <ClearCartIcon width="20" height="20" />
             <span>Очистить корзину</span>
           </button>
         </div>
