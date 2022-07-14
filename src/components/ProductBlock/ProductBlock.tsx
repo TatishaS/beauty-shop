@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks';
-import { addItem, Item } from '../../redux/slices/cartSlice';
+import { addItem } from '../../redux/cart/slice';
+import { Item } from '../../redux/cart/types';
 
 type ProductBlockProps = {
   id: number;

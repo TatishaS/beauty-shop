@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../hooks';
 import { Link } from 'react-router-dom';
 import { ReactComponent as ClearCartIcon } from '../assets/images/icon-clear.svg';
-import { clearCart } from '../redux/slices/cartSlice';
+import { clearCart } from '../redux/cart/slice';
 import CartItem from '../components/CartItem';
 import CartEmpty from '../components/CartEmpty';
 

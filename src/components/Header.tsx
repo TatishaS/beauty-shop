@@ -5,12 +5,22 @@ import logo from '../assets/images/logo-ve.png';
 
 const Header: FC = () => {
   const { items, totalPrice } = useAppSelector(state => state.cart);
+  const isMounted = React.useRef(false);
 
   const totalCount =
     items &&
     items.reduce((sum: number, item: any) => {
       return sum + item.count;
     }, 0);
+
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const json = JSON.stringify(items);
+      localStorage.setItem('cart', json);
+    }
+
+    isMounted.current = true;
+  }, [items]);
 
   return (
     <div className="header">

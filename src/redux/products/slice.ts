@@ -1,33 +1,11 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-
-export type Product = {
-  id: number;
-  title: string;
-  price: number;
-  imageUrl: string;
-  sizes: number[];
-  rating: number;
-};
-
-export type SearchProductParams = {
-  api: string;
-  categoryId: number;
-  sortProperty: string;
-  order: string;
-  searchValue: string;
-};
-
-export enum Status {
-  LOADING = 'loading',
-  SUCCESS = 'success',
-  ERROR = 'error',
-}
-
-interface ProductsSliceState {
-  items: Product[];
-  status: Status;
-}
+import {
+  ProductsSliceState,
+  Status,
+  Product,
+  SearchProductParams,
+} from './types';
 
 const initialState: ProductsSliceState = {
   items: [],
@@ -70,20 +48,6 @@ export const productsSlice = createSlice({
         state.status = Status.ERROR;
       });
   },
-  /*  {
-    [fetchProducts.pending]: state => {
-      state.items = [];
-      state.status = 'loading';
-    },
-    [fetchProducts.fulfilled]: (state, action) => {
-      state.items = action.payload;
-      state.status = 'success';
-    },
-    [fetchProducts.rejected]: state => {
-      state.items = [];
-      state.status = 'error';
-    },
-  }, */
 });
 
 export const { setItems } = productsSlice.actions;

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks';
-import { setSearchValue } from '../../redux/slices/filterSlice';
+import { setSearchValue } from '../../redux/filter/slice';
 import { ReactComponent as SearchIcon } from '../../assets/images/icon-search.svg';
 import { ReactComponent as ClearIcon } from '../../assets/images/icon-close.svg';
 import styles from './Search.module.scss';

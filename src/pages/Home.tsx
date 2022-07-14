@@ -9,8 +9,8 @@ import Sort, { sortList } from '../components/Sort';
 import Search from '../components/Search';
 import ProductBlock from '../components/ProductBlock/ProductBlock';
 import Skeleton from '../components/ProductBlock/Skeleton';
-import { setActiveCategory, setFilters } from '../redux/slices/filterSlice';
-import { fetchProducts } from '../redux/slices/productsSlice';
+import { setActiveCategory, setFilters } from '../redux/filter/slice';
+import { fetchProducts } from '../redux/products/slice';
 
 const api = 'https://my-beautyshop-api.herokuapp.com/products?';
 // api query example
@@ -27,8 +27,6 @@ const Home: FC = () => {
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  //const [isLoading, setIsLoading] = React.useState(true);
-  //const [searchValue, setSearchValue] = React.useState('');
   const { activeCategory, sort, searchValue } = useAppSelector(
     state => state.filter
   );

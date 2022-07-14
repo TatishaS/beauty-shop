@@ -1,11 +1,8 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../hooks';
-import {
-  setSelectedSort,
-  SortPropertyEnum,
-  OrderEnum,
-} from '../redux/slices/filterSlice';
+import { setSelectedSort } from '../redux/filter/slice';
+import { SortPropertyEnum, OrderEnum } from '../redux/filter/types';
 
 type SortItem = {
   name: string;
