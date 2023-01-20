@@ -9,10 +9,11 @@ import Sort, { sortList } from '../components/Sort';
 import Search from '../components/Search';
 import ProductBlock from '../components/ProductBlock/ProductBlock';
 import Skeleton from '../components/ProductBlock/Skeleton';
-import { setActiveCategory, setFilters } from '../redux/filter/slice';
+import { setActiveCategory } from '../redux/filter/slice';
 import { fetchProducts } from '../redux/products/slice';
 
-const api = 'https://my-beautyshop-api.herokuapp.com/products?';
+//const api = 'https://my-beautyshop-api.app.com/products?';
+const api = 'https://my-beautyshop-api.onrender.com/products?';
 // api query example
 // https://my-beautyshop-api.herokuapp.com/products?_page=1&_limit=2
 

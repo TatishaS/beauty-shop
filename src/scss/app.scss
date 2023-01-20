@@ -174,6 +174,8 @@ body {
     align-items: center;
     cursor: pointer;
     @include noselect();
+    padding: 10px 15px;
+    background-color: #fff;
 
     span {
       display: inline-block;
@@ -230,6 +232,11 @@ body {
         font-size: 20px;
         line-height: 27px;
         letter-spacing: 0.01em;
+
+        @media (max-width: 900px) {
+          font-size: 16px;
+          line-height: 1;
+        }
       }
 
       p {
